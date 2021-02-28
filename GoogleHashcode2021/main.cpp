@@ -1,14 +1,26 @@
+/* Google Hashcode 2021
+Traffic Signaling
+@author Aviral Goel, Basma Zubair, Urvashi Kishnani, Zunaira Zubair
+Feb 2021
+*/
+
+
 #include <bits/stdc++.h>
 
 using namespace std;
 
+// variables to store, simulation time, number of intersections, number of streets,
+// number of vehicles, number of bonus points per veheicle
 int D, I, S, V, F;
+// number of intersection for which we specify the schedule
 int A;
+//IDs of intersection that qualify to have either one or more of their traffic lights to be regulated.
 vector<int> output_intersections;
+//our mean of the metric (ranking function to determine streets are more likely to experience heavy traffic)
 float mean_metric;
 
 struct street {
-    int id;
+    int id; //our own identifier for each street
     int B;
     int E;
     string name;
@@ -18,7 +30,7 @@ struct street {
 };
 
 struct car {
-    int id;
+    int id; //our own identifier for each street
     int P;
     vector<string> street_names;
 };
@@ -29,15 +41,20 @@ struct intersection {
     vector<string> incoming_streets;
 };
 
+//one to one mapping between street IDs and street names
 map<string, int> street_id;
 
+//vectors to store all streets, cars and intersections.
 vector<street> streets;
 vector<car> cars;
 vector<intersection> intersections;
 
+// reading function to take the input
 void read(char* input_file) {
+
     ifstream fin(input_file);
     fin>>D>>I>>S>>V>>F;
+
     for(int i = 0; i < I; i++) {
         intersection temp_intersection;
         temp_intersection.id = i;
@@ -70,19 +87,22 @@ void read(char* input_file) {
         cars.push_back(temp_car);
     }
 
-    cout<<intersections.size()<<endl;
-    cout<<streets.size()<<endl;
-    cout<<cars.size()<<endl;
+    //cout<<intersections.size()<<endl;
+    //cout<<streets.size()<<endl;
+    //cout<<cars.size()<<endl;
 
 }
 
 void solve() {
+    //number of intersections to deal with
     A = 0;
 
+    // calculating metric for each street (METRIC = NUMBER OF CARS THAT WISH TO TRAVERSE THE STREET / DURATION OF STREET)
     for(int i = 0; i < streets.size(); i++) {
         streets[i].metric = streets[i].popularity * 1.0 / streets[i].L;
     }
 
+    //Does this intersection has one incoming street?
     for(int i = 0; i < intersections.size(); i++) {
         if(intersections[i].incoming_count > 0) {
             A++;
@@ -90,6 +110,7 @@ void solve() {
         }
     }
 
+    // Calculate the mean of the metric of all streets
     mean_metric = 0;
     for(int g = 0 ; g < streets.size(); g++)
     {
@@ -101,9 +122,12 @@ void solve() {
 }
 
 void write(char* output_file, int file_index) {
+
     ofstream outfile(output_file);
     outfile<<A<<endl;
+
     for(int i = 0; i < output_intersections.size(); i++) {
+
         int _id = output_intersections[i];
         outfile<<_id<<endl;
 
@@ -111,6 +135,7 @@ void write(char* output_file, int file_index) {
         vector<string> _output_incoming_streets;
         _output_incoming_streets.clear();
 
+        // Check which streets are to be visited by at least 1 car
         for(int j = 0; j < intersections[_id].incoming_streets.size(); j++) {
             int _street_id = street_id.at(intersections[_id].incoming_streets[j]);
             if(streets[_street_id].popularity != 0) {
@@ -119,15 +144,18 @@ void write(char* output_file, int file_index) {
             }
         }
 
+        //Randomn number as duration for traffic signal
         int below_metric=rand() % 15 + 1, above_metric= rand() % 30 + 8;;
 
 
         outfile<<_output_intersection_count<<endl;
         for(int j = 0; j < _output_intersection_count; j++) {
             int _street_id = street_id.at(_output_incoming_streets[j]);
+            //Give a street more time if its busier than average
             if(streets[_street_id].metric >= mean_metric) {
                 outfile<<_output_incoming_streets[j]<<" "<<above_metric<<"\n";
             }
+            //Give it less time
             else
             {
                 outfile<<_output_incoming_streets[j]<<" "<<below_metric<<"\n";
