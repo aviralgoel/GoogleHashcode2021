@@ -31,3 +31,5 @@ For a more formal description, check the official problem statement [here.](http
  3. We should have tried a combination of (random+sort) on the data set. 
  4. We should have tried to normalize our metric variable.
  5. Obviously, thought of better approaches, perhaps, graph or advance set theory. 
+
+Note: All commits to the code after 28th Jan 1AM GMT are made post contest submission as further attempt to improvise the solution. These changes were not part of submitted solution.
