@@ -1,7 +1,7 @@
 # Google Hashcode 2021 - Traffic Problem
  
  This was the submission of our team of 4 people for the Google Hashcode 2021 hosted online.
- We scored a overal rank of #2016 and #2 in the nation.
+ We scored an overall rank of #2016 and #2 in the nation.
  (Better than our rank of last year, Yay!)
  
  # Traffic Signalling: Task
@@ -31,3 +31,5 @@ For a more formal description, check the official problem statement [here.](http
  3. We should have tried a combination of (random+sort) on the data set. 
  4. We should have tried to normalize our metric variable.
  5. Obviously, thought of better approaches, perhaps, graph or advance set theory. 
+
+Note: All commits to the code after 28th Jan 1AM GMT are made post contest submission as further attempt to improvise the solution. These changes were not part of submitted solution.
