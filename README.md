@@ -25,7 +25,7 @@ For a more formal description, check the official problem statement [here.](http
  5. Look for further optimizations which can make determining an ideal time frame for green and red duration of traffic light. (Somewhat done but solution is dumb)
  6. Further optimization according to test cases. (NOT DONE)
     
-Takeaways:
+## Takeaways:
  1. We should have been a little more prepared for the large sets of the data.
  2. We should have taken advanatge of the visualize option in the Judge System (Especially for test case f.)
  3. We should have tried a combination of (random+sort) on the data set. 
